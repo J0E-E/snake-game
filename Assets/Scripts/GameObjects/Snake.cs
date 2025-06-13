@@ -1,12 +1,13 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Snake : MonoBehaviour
 {
+    private GameScoreManager GameScoreManager => ManagerLocator.Get<GameScoreManager>();
+    
     private Vector2 _direction = Vector2.right;
     private List<Transform> _segments = new List<Transform>();
+    
     [SerializeField] private Transform segmentPrefab;
     [SerializeField] private Transform tailPrefab;
     [SerializeField] private int initialSize = 4;
@@ -125,6 +126,7 @@ public class Snake : MonoBehaviour
     {
         if (other.CompareTag("Food"))
         {
+            GameScoreManager.ScoreApple();
             Grow();
         }
 

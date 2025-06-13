@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,7 +9,12 @@ public class MainMenuUI : MonoBehaviour
     
     [SerializeField] private InputField initialsInputField;
     [SerializeField] private Button startGameButton;
-    
+
+    private void Start()
+    {
+        initialsInputField.characterLimit = 4;
+    }
+
     public void SetPlayerInitials(string initials)
     {
         startGameButton.interactable = initials.Length > 0;

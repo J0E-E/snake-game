@@ -467,6 +467,7 @@ GameObject:
   - component: {fileID: 391505913}
   - component: {fileID: 391505916}
   - component: {fileID: 391505917}
+  - component: {fileID: 391505918}
   m_Layer: 0
   m_Name: GameManagers
   m_TagString: Untagged
@@ -526,8 +527,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: effa07ddf248543a09134b113de61c1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointsPerApple: 0
-  levelMultiplier: 0
+  pointsPerApple: 10
+  levelMultiplier: 1
 --- !u!114 &391505917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -538,6 +539,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e7552ad20aa3f4787b359a6b1ca3c182, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &391505918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 391505912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d32fde84ece3405cae17bb282d5b54b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &619215621
@@ -722,7 +735,7 @@ MonoBehaviour:
       - m_Target: {fileID: 866748061}
         m_TargetAssemblyTypeName: MainMenuUI, Assembly-CSharp
         m_MethodName: SetPlayerInitials
-        m_Mode: 5
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1032,6 +1045,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialsInputField: {fileID: 663606619}
+  startGameButton: {fileID: 1279134017}
 --- !u!1 &870108006
 GameObject:
   m_ObjectHideFlags: 0
@@ -1453,8 +1467,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 391505914}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+      - m_Target: {fileID: 866748061}
+        m_TargetAssemblyTypeName: MainMenuUI, Assembly-CSharp
         m_MethodName: StartGame
         m_Mode: 1
         m_Arguments:
