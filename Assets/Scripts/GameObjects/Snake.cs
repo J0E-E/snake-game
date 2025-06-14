@@ -1,9 +1,13 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Snake : MonoBehaviour
 {
     private GameScoreManager GameScoreManager => ManagerLocator.Get<GameScoreManager>();
+
+    public static event Action<List<Transform>> OnSnakeGrow;
+    public static event Action<Vector2> OnDirectionChange;
     
     private Vector2 _direction = Vector2.right;
     private List<Transform> _segments = new List<Transform>();
@@ -34,6 +38,8 @@ public class Snake : MonoBehaviour
         {
             _direction = Vector2.right;
         }
+        
+        OnDirectionChange?.Invoke(_direction);
     }
 
     private void FixedUpdate()
@@ -96,6 +102,7 @@ public class Snake : MonoBehaviour
         
         _segments.Insert(_segments.Count -1, segment);
         RotateTail(_segments[^1], _segments[^3]);
+        OnSnakeGrow?.Invoke(_segments);
     }
 
     private void ResetState()
@@ -135,4 +142,6 @@ public class Snake : MonoBehaviour
             GameManager.Instance.ChangeScenes(SceneName.GameOver);
         }
     }
+
+    public Vector2 Direction => _direction;
 }
