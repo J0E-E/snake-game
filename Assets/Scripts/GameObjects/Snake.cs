@@ -1,11 +1,19 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Snake : MonoBehaviour
 {
-    private GameScoreManager GameScoreManager => ManagerLocator.Get<GameScoreManager>();
+    private GameScoreManager _gameScoreManager => ManagerLocator.Get<GameScoreManager>();
+    private ObjectPlacementManager _objectPlacementManager => ManagerLocator.Get<ObjectPlacementManager>();
+    
+    public static event Action<List<Transform>> OnSnakeGrow;
+    public static event Action<Vector2> OnDirectionChange;
+    public static event Action OnGameOver;
+    public static event Action OnGameStart;
     
     private Vector2 _direction = Vector2.right;
+    private Vector2 _newDirection = Vector2.right;
     private List<Transform> _segments = new List<Transform>();
     
     [SerializeField] private Transform segmentPrefab;
@@ -14,31 +22,33 @@ public class Snake : MonoBehaviour
     private void Start()
     {
         ResetState();
+        OnGameStart?.Invoke();
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.W) & !(_direction == Vector2.down))
         {
-            _direction = Vector2.up;
+            _newDirection = Vector2.up;
         }
         else if (Input.GetKeyDown(KeyCode.S) & !(_direction == Vector2.up))
         {
-            _direction = Vector2.down;
+            _newDirection = Vector2.down;
         }
         else if (Input.GetKeyDown(KeyCode.A) & !(_direction == Vector2.right))
         {
-            _direction = Vector2.left;
+            _newDirection = Vector2.left;
         }
         else if (Input.GetKeyDown(KeyCode.D) & !(_direction == Vector2.left))
         {
-            _direction = Vector2.right;
+            _newDirection = Vector2.right;
         }
     }
 
     private void FixedUpdate()
     {
-
+        _direction = _newDirection;
+        OnDirectionChange?.Invoke(_direction);
         for (var i = _segments.Count - 1; i > 0; i--)
         {
             _segments[i].position = _segments[i - 1].position;
@@ -96,6 +106,7 @@ public class Snake : MonoBehaviour
         
         _segments.Insert(_segments.Count -1, segment);
         RotateTail(_segments[^1], _segments[^3]);
+        OnSnakeGrow?.Invoke(_segments);
     }
 
     private void ResetState()
@@ -120,19 +131,23 @@ public class Snake : MonoBehaviour
         tailSegment.position = _segments[^1].position + Vector3.left;
         _segments.Add(tailSegment);
         RotateTail(_segments[^1], _segments[^2]);
+        OnSnakeGrow?.Invoke(_segments);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Food"))
         {
-            GameScoreManager.ScoreApple();
+            _gameScoreManager.ScoreApple();
             Grow();
         }
 
         if (other.CompareTag("Obstacle"))
         {
             GameManager.Instance.ChangeScenes(SceneName.GameOver);
+            OnGameOver?.Invoke();
         }
     }
+
+    public Vector2 Direction => _direction;
 }

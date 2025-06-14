@@ -3,36 +3,48 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour, IManager
 {
-    private int levelTriggerCount = 5;
-    private int currentLevel = 1;
+   [SerializeField] private int applesPerLevel = 5;
+    private int _currentLevel = 1;
     
     public static event Action<int> OnLevelChange;
     private void OnEnable()
     {
         GameScoreManager.OnAppleConsumed += AppleConsumed;
+        Snake.OnGameStart += OnGameStart;
     }
 
     private void OnDisable()
     {
         GameScoreManager.OnAppleConsumed -= AppleConsumed;
+        Snake.OnGameStart -= OnGameStart;
     }
 
     private void Start()
     {
-        OnLevelChange?.Invoke(currentLevel);
+        OnLevelChange?.Invoke(_currentLevel);
     }
 
     private void AppleConsumed(int numberOfApples)
     {
-        if (numberOfApples % levelTriggerCount == 0)
-        {
-            currentLevel++;
-            OnLevelChange?.Invoke(currentLevel);
-        }
+        if (!IsLevelUp(numberOfApples)) return;
+        
+        _currentLevel++;
+        OnLevelChange?.Invoke(_currentLevel);
+        
     }
 
     public int GetCurrentLevel()
     {
-        return currentLevel;
+        return _currentLevel;
+    }
+
+    private void OnGameStart()
+    {
+        _currentLevel = 1;
+    }
+
+    public bool IsLevelUp(int numberOfApples)
+    {
+        return numberOfApples % applesPerLevel == 0;
     }
 }

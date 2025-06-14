@@ -17,11 +17,16 @@ public class HighScoreDisplay : MonoBehaviour
     {
         HighScoreManager.GetTopScores((topScoresList) =>
         {   
+            if (topScoresList == null) return;
+            
             foreach (HighScoreManager.TopScore score in topScoresList.scores)
             {
                 GameObject topScoreText = Instantiate(highScoreTextPrefab, topScoredGrid.transform);
                 TextMeshProUGUI textComponent = topScoreText.GetComponent<TextMeshProUGUI>();
-                textComponent.text = $"{score.player.ToUpper()} {score.score} {score.date.Split('T')[0]}";
+                if (textComponent)
+                {
+                    textComponent.text = $"{score.player.ToUpper()} {score.score} {score.date.Split('T')[0]}";
+                }
             }
         });
     }
