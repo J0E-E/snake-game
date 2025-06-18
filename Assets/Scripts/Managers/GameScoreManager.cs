@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class GameScoreManager : MonoBehaviour, IManager
 {
-    private GameManager GameManager => ManagerLocator.Get<GameManager>();
+    private LevelManager _levelManager => ManagerLocator.Get<LevelManager>();
     
     private int _gameScore;
     private int _applesConsumed;
@@ -27,14 +27,9 @@ public class GameScoreManager : MonoBehaviour, IManager
     public void ScoreApple()
     {
         _applesConsumed++;
-        _gameScore += pointsPerApple + (levelMultiplier * GameManager.GetCurrentLevel());
+        _gameScore += pointsPerApple + (levelMultiplier * _levelManager.GetCurrentLevel());
         OnScoreChanged?.Invoke(_gameScore);
         OnAppleConsumed?.Invoke(_applesConsumed);
-    }
-
-    public int GetGameScore()
-    {
-        return _gameScore;
     }
 
     private void OnGameStart()

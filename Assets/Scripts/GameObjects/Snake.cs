@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Snake : MonoBehaviour
 {
@@ -25,21 +26,23 @@ public class Snake : MonoBehaviour
         OnGameStart?.Invoke();
     }
 
-    private void Update()
+    private void OnMove(InputValue value)
     {
-        if (Input.GetKeyDown(KeyCode.W) & !(_direction == Vector2.down))
+        Vector2 vector = value.Get<Vector2>();
+        
+        if (vector == Vector2.up & !(_direction == Vector2.down))
         {
             _newDirection = Vector2.up;
         }
-        else if (Input.GetKeyDown(KeyCode.S) & !(_direction == Vector2.up))
+        else if (vector == Vector2.down & !(_direction == Vector2.up))
         {
             _newDirection = Vector2.down;
         }
-        else if (Input.GetKeyDown(KeyCode.A) & !(_direction == Vector2.right))
+        else if (vector == Vector2.left & !(_direction == Vector2.right))
         {
             _newDirection = Vector2.left;
         }
-        else if (Input.GetKeyDown(KeyCode.D) & !(_direction == Vector2.left))
+        else if (vector == Vector2.right & !(_direction == Vector2.left))
         {
             _newDirection = Vector2.right;
         }

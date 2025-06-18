@@ -49,9 +49,4 @@ public class GameManager : MonoBehaviour
     {
         ChangeScenes(SceneName.Snake);
     }
-
-    public int GetCurrentLevel()
-    {
-        return 1;
-    }
 }
