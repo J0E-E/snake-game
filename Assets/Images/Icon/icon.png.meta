@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 6949e3921f1cc46249cd54edabed63e0
+guid: 511bbf2e4a222456f902b5ba7bebb628
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 9211888523498938634
-    second: Snake Logo 1_0
+      213: 6934086728263231946
+    second: icon_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 3
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -139,13 +139,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Snake Logo 1_0
+      name: icon_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 69
-        height: 69
+        width: 1024
+        height: 1024
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,8 +154,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a01e6a13ec337df70800000000000000
-      internalID: 9211888523498938634
+      spriteID: ac961e71423da3060800000000000000
+      internalID: 6934086728263231946
       vertices: []
       indices: 
       edges: []
@@ -174,7 +174,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Snake Logo 1_0: 9211888523498938634
+      icon_0: 6934086728263231946
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

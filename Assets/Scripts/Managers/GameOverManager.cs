@@ -8,4 +8,15 @@ public class GameOverManager : MonoBehaviour
     {
         GameManager.ChangeScenes(SceneName.Snake);
     }
+
+    public void QuitGame()
+    {
+        // Close the game
+        Application.Quit();
+
+        // For editor testing
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
+    }
 }

@@ -7,10 +7,37 @@
             "actions": [
                 {
                     "name": "Move",
-                    "type": "Value",
+                    "type": "Button",
                     "id": "351f2ccd-1f9f-44bf-9bec-d62ac5c5f408",
-                    "expectedControlType": "Vector2",
+                    "expectedControlType": "",
                     "processors": "NormalizeVector2",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "TouchPosition",
+                    "type": "Value",
+                    "id": "246ad13a-2660-453a-ab6e-7557a12df805",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "TouchPress",
+                    "type": "Button",
+                    "id": "5206a961-3fa7-4fa2-aa4c-f1f86b2d9d89",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "TouchSwipe",
+                    "type": "Value",
+                    "id": "4101bd8f-e4ec-4e4b-9e69-f4a704d5e7ea",
+                    "expectedControlType": "Touch",
+                    "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
                 }
@@ -150,12 +177,34 @@
                 },
                 {
                     "name": "",
-                    "id": "31c5b4c0-c880-4664-bb59-53418169a7dd",
-                    "path": "<Touchscreen>/primaryTouch/delta",
+                    "id": "d0b535ee-8263-4af4-9d74-f05c5e592be7",
+                    "path": "<Touchscreen>/position",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Touch",
-                    "action": "Move",
+                    "groups": "",
+                    "action": "TouchPosition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a3a42117-7a90-458e-98ff-7fca2745bdd4",
+                    "path": "<Touchscreen>/Press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TouchPress",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "47957c8e-9485-4b1d-b9b9-feb31ef96150",
+                    "path": "<Touchscreen>/primaryTouch",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TouchSwipe",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -187,7 +236,7 @@
                     "name": "Cancel",
                     "type": "Button",
                     "id": "15cef263-9014-4fd5-94d9-4e4a6234a6ef",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false

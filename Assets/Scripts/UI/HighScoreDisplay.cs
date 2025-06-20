@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HighScoreDisplay : MonoBehaviour
 {
-    private HighScoreManager HighScoreManager => ManagerLocator.Get<HighScoreManager>();
+    private HighScoreManager _highScoreManager => ManagerLocator.Get<HighScoreManager>();
     [SerializeField] private Canvas topScoredGrid;
     [SerializeField] private GameObject highScoreTextPrefab;
 
@@ -15,11 +15,11 @@ public class HighScoreDisplay : MonoBehaviour
 
     private void GetTopScores()
     {
-        HighScoreManager.GetTopScores((topScoresList) =>
+        _highScoreManager.GetTopScores((topScoresList) =>
         {   
             if (topScoresList == null) return;
             
-            foreach (HighScoreManager.TopScore score in topScoresList.scores)
+            foreach (HighScoreManager.PlayerScore score in topScoresList.scores)
             {
                 GameObject topScoreText = Instantiate(highScoreTextPrefab, topScoredGrid.transform);
                 TextMeshProUGUI textComponent = topScoreText.GetComponent<TextMeshProUGUI>();

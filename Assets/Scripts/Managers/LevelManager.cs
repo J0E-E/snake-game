@@ -26,7 +26,7 @@ public class LevelManager : MonoBehaviour, IManager
 
     private void AppleConsumed(int numberOfApples)
     {
-        if (!IsLevelUp(numberOfApples)) return;
+        if (!IsLevelUp(numberOfApples) || numberOfApples == 0) return;
         
         _currentLevel++;
         OnLevelChange?.Invoke(_currentLevel);
@@ -41,6 +41,7 @@ public class LevelManager : MonoBehaviour, IManager
     private void OnGameStart()
     {
         _currentLevel = 1;
+        OnLevelChange?.Invoke(_currentLevel);
     }
 
     public bool IsLevelUp(int numberOfApples)

@@ -3,8 +3,10 @@ using UnityEngine;
 
 public class GameUI : MonoBehaviour
 {
-    private PlayerManager PlayerManager => ManagerLocator.Get<PlayerManager>();
-    private LevelManager LevelManager => ManagerLocator.Get<LevelManager>();
+    private PlayerManager _playerManager => ManagerLocator.Get<PlayerManager>();
+    private LevelManager _levelManager => ManagerLocator.Get<LevelManager>();
+
+    private GameScoreManager _gameScoreManager => ManagerLocator.Get<GameScoreManager>();
     
     [SerializeField] private TextMeshProUGUI playerText;
     [SerializeField] private TextMeshProUGUI scoreValue;
@@ -34,7 +36,8 @@ public class GameUI : MonoBehaviour
 
     private void Start()
     {
-        levelValue.text = LevelManager.GetCurrentLevel().ToString();
-        playerText.text = $"PLAYER: {PlayerManager.PlayerInitials}";
+        scoreValue.text = _gameScoreManager.GetGameScore().ToString();
+        levelValue.text = _levelManager.GetCurrentLevel().ToString();
+        playerText.text = $"PLAYER: {_playerManager.PlayerInitials}";
     }
 }

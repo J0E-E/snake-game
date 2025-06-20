@@ -6,13 +6,14 @@ using UnityEngine.InputSystem;
 public class Snake : MonoBehaviour
 {
     private GameScoreManager _gameScoreManager => ManagerLocator.Get<GameScoreManager>();
-    private ObjectPlacementManager _objectPlacementManager => ManagerLocator.Get<ObjectPlacementManager>();
+    [SerializeField] private TouchManager touchManager;
     
     public static event Action<List<Transform>> OnSnakeGrow;
     public static event Action<Vector2> OnDirectionChange;
     public static event Action OnGameOver;
     public static event Action OnGameStart;
-    
+
+    private bool _canMove;
     private Vector2 _direction = Vector2.right;
     private Vector2 _newDirection = Vector2.right;
     private List<Transform> _segments = new List<Transform>();
@@ -20,16 +21,21 @@ public class Snake : MonoBehaviour
     [SerializeField] private Transform segmentPrefab;
     [SerializeField] private Transform tailPrefab;
     [SerializeField] private int initialSize = 4;
+
+    private void Awake()
+    {
+        touchManager.swipePerformed += SetDirection;
+    }
+
     private void Start()
     {
         ResetState();
+        _canMove = true;
         OnGameStart?.Invoke();
     }
 
-    private void OnMove(InputValue value)
+    private void SetDirection(Vector2 vector)
     {
-        Vector2 vector = value.Get<Vector2>();
-        
         if (vector == Vector2.up & !(_direction == Vector2.down))
         {
             _newDirection = Vector2.up;
@@ -48,8 +54,17 @@ public class Snake : MonoBehaviour
         }
     }
 
+    private void OnMove(InputValue value)
+    {
+        Vector2 vector = value.Get<Vector2>();
+        SetDirection(vector);
+        
+    }
+
     private void FixedUpdate()
     {
+        if (!_canMove) return;
+        
         _direction = _newDirection;
         OnDirectionChange?.Invoke(_direction);
         for (var i = _segments.Count - 1; i > 0; i--)
@@ -147,7 +162,7 @@ public class Snake : MonoBehaviour
 
         if (other.CompareTag("Obstacle"))
         {
-            GameManager.Instance.ChangeScenes(SceneName.GameOver);
+            _canMove = false;
             OnGameOver?.Invoke();
         }
     }
